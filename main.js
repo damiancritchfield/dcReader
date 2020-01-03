@@ -14,7 +14,8 @@ function createWindow () {
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
 	  nodeIntegration: true
-    }
+    },
+	frame: false
   })
 
   // and load the index.html of the app.
@@ -54,13 +55,16 @@ app.on('activate', function () {
 // code. You can also put them in separate files and require them here.
 
 const {ipcMain, dialog} = require('electron')
-const fs = require("fs");
+const fs = require("fs")
 
-const filePath = process.argv[1];
+// const filePath = process.argv[1]
+const filePath = 'C:/Users/llsh/Desktop/接口文档.md'
 ipcMain.on('load-default-md-file', (event) => {
   if(filePath){
 	  let fileText = fs.readFileSync(filePath, "utf8");
 	  event.sender.send('loaded-default-md-file', fileText)
   }
 })
-
+ipcMain.on('exit-app', (event) => {
+  app.quit()
+})

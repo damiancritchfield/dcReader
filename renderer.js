@@ -15,3 +15,8 @@ ipcRenderer.on('loaded-default-md-file', (event, mdContent) => {
 	var result = md.render(mdContent);
 	document.getElementById('content').innerHTML = result;
 })
+
+const closeWindowBtn = document.getElementById('close-btn')
+closeWindowBtn.addEventListener('click', (event) => {
+	ipcRenderer.send('exit-app');
+})
